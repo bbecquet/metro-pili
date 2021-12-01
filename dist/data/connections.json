@@ -1,0 +1,207 @@
+[
+  {
+    "_comm": "Métro-Tram @Balard",
+    "stationA": 1997,
+    "stationB": 136234,
+    "time": 120
+  },
+  {
+    "_comm": "Métro-Tram @Porte de Vanves",
+    "stationA": 1731,
+    "stationB": 136239,
+    "time": 120
+  },
+  {
+    "_comm": "Métro-Tram @Porte d'Orléans",
+    "stationA": 1720,
+    "stationB": 136242,
+    "time": 120
+  },
+  {
+    "_comm": "Métro-Tram @Porte d'Italie",
+    "stationA": 1718,
+    "stationB": 136247,
+    "time": 120
+  },
+  {
+    "_comm": "Métro-Tram @Porte de Choisy",
+    "stationA": 1724,
+    "stationB": 136248,
+    "time": 120
+  },
+  {
+    "_comm": "Métro-Tram @Porte d'Ivry",
+    "stationA": 1719,
+    "stationB": 136249,
+    "time": 120
+  },
+  {
+    "_comm": "Métro-RER @Etoile",
+    "stationA": 1954,
+    "stationB": 1953,
+    "time": 120
+  },
+  {
+    "_comm": "Métro-RER @Gare de Lyon",
+    "stationA": 1839,
+    "stationB": 1840,
+    "time": 120
+  },
+  {
+    "_comm": "Métro-RER @Nation",
+    "stationA": 1758,
+    "stationB": 1759,
+    "time": 180
+  },
+  {
+    "_comm": "Métro-RER @Châtelet",
+    "stationA": 1967,
+    "stationB": 1964,
+    "time": 180
+  },
+  {
+    "_comm": "Métro-RER @Les Halles",
+    "stationA": 1967,
+    "stationB": 1801,
+    "time": 300
+  },
+  {
+    "_comm": "Métro-RER @Gare du Nord",
+    "stationA": 1843,
+    "stationB": 1842,
+    "time": 120
+  },
+  {
+    "_comm": "7-10 @Jussieu",
+    "station": 1866,
+    "lineA": "m7",
+    "lineB": "m10",
+    "time": [30, 45]
+  },
+  {
+    "_comm": "T3a-T3b @Porte de Vincennes",
+    "stationA": 446354,
+    "stationB": 446302,
+    "time": 180
+  },
+  {
+    "_comm": "Métro-T3a @Porte de Vincennes",
+    "stationA": 446354,
+    "stationB": 1733,
+    "time": 180
+  },
+  {
+    "_comm": "Métro-T3b @Porte de Vincennes",
+    "stationA": 446302,
+    "stationB": 1733,
+    "time": 180
+  },
+  {
+    "_comm": "Métro-T3a @Porte de Versailles",
+    "stationA": 1732,
+    "stationB": 446285,
+    "time": 180
+  },
+  {
+    "_comm": "Métro-T? @Porte de Vincennes",
+    "stationA": 1732,
+    "stationB": 302754,
+    "time": 180
+  },
+  {
+    "_comm": "T3a-T? @Porte de Vincennes",
+    "stationA": 446285,
+    "stationB": 302754,
+    "time": 180
+  },
+  {
+    "_comm": "Métro-T3a @Porte Dorée",
+    "stationA": 1715,
+    "stationB": 446351,
+    "time": 180
+  },
+  {
+    "_comm": "Métro-T3a @Porte de Charenton",
+    "stationA": 1723,
+    "stationB": 446350,
+    "time": 180
+  },
+  {
+    "_comm": "RER-T3a @Cité U",
+    "stationA": 1970,
+    "stationB": 136244,
+    "time": 180
+  },
+  {
+    "_comm": "Métro-T3b @Porte de Montreuil",
+    "stationA": 1727,
+    "stationB": 446303,
+    "time": 180
+  },
+  {
+    "_comm": "Métro-T3b @Porte de Bagnolet",
+    "stationA": 1721,
+    "stationB": 446305,
+    "time": 180
+  },
+  {
+    "_comm": "Métro-T3b @Porte des Lilas",
+    "stationA": 1736,
+    "stationB": 446323,
+    "time": 180
+  },
+  {
+    "_comm": "Métro-T3b @Porte de Pantin",
+    "stationA": 1728,
+    "stationB": 446311,
+    "time": 180
+  },
+  {
+    "_comm": "Métro-T3b @Porte de la Vilette",
+    "stationA": 1735,
+    "stationB": 446314,
+    "time": 180
+  },
+  {
+    "_comm": "Métro-T3b @Porte de la Chapelle",
+    "stationA": 1734,
+    "stationB": 446319,
+    "time": 180
+  },
+  {
+    "_comm": "RER-Métro @Saint-Michel",
+    "stationA": 5604,
+    "stationB": 1694,
+    "time": 180
+  },
+  {
+    "_comm": "T2-RER @La Défense",
+    "stationA": 446342,
+    "stationB": 1871,
+    "time": 180
+  },
+  {
+    "_comm": "T2-Métro @La Défense",
+    "stationA": 446342,
+    "stationB": 1850,
+    "time": 180
+  },
+  {
+    "_comm": "Métro-RER @La Défense",
+    "stationA": 1850,
+    "stationB": 1871,
+    "time": 180
+  },
+  {
+    "_comm": "Opéra-Auber",
+    "stationA": 1771,
+    "stationB": 1990,
+    "time": 300
+  },
+  {
+    "_comm": "Havre Caumartin-Auber",
+    "stationA": 1990,
+    "stationB": 1852,
+    "time": 300
+  }
+]

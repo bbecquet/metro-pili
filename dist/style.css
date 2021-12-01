@@ -1,0 +1,111 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: 'Parisine';
+  src: url('./Parisine-Bold.otf');
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  font-family: sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  color: white;
+}
+
+a:hover {
+  color: #bdb;
+}
+
+#panel {
+  font-size: 0.8rem;
+  height: 6rem;
+  padding: 0.5rem;
+  box-shadow: 5px 0 10px 0 black;
+  background-color: #444;
+  color: #eee;
+  overflow: auto;
+  z-index: 500;
+}
+
+#map {
+  height: 100%;
+}
+
+.stationMarker {
+  width: 14px !important;
+  height: 14px !important;
+  margin-left: -7px !important;
+  margin-top: -7px !important;
+}
+
+.stationMarker-inner {
+  border-radius: 50%;
+  --led-color: #555;
+  box-shadow: inset 1px 1px 4px #000, 0 0 1px #000;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  background-color: var(--led-color);
+}
+
+.path.stationMarker-inner {
+  box-shadow: inset 1px 1px 4px #000, 0 0 1px #000, 0 0 8px 7px var(--led-color);
+}
+
+.path.stationMarker-inner::after {
+  position: absolute;
+  display: block;
+  content: '';
+  width: 4px;
+  height: 4px;
+  background-color: var(--halo-color);
+  left: 5px;
+  top: 5px;
+  box-shadow: 0 0 5px 2px var(--halo-color);
+  border-radius: 50%;
+  z-index: 1000;
+}
+
+.smallZoom .stationMarker {
+  border: 1px solid #222;
+  width: 9px !important;
+  height: 9px !important;
+  margin-left: -5px !important;
+  margin-top: -5px !important;
+}
+
+.leaflet-tooltip.stationTooltip {
+  opacity: 1;
+  border: 0;
+  padding: 0.1rem 0.3rem;
+  background-color: #003f90;
+  color: white;
+  font-size: 16px;
+  border-radius: none;
+  font-family: Parisine, sans-serif;
+}
+
+.leaflet-tooltip-top.stationTooltip:before {
+  border-top-color: #003f90 !important;
+}
+.leaflet-tooltip-bottom.stationTooltip:before {
+  border-bottom-color: #003f90 !important;
+}
+.leaflet-tooltip-left.stationTooltip:before {
+  border-left-color: #003f90 !important;
+}
+.leaflet-tooltip-right.stationTooltip:before {
+  border-right-color: #003f90 !important;
+}
