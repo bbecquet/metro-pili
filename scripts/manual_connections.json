@@ -1,0 +1,44 @@
+[
+  { "comm": "Porte Dauphine=>Avenue Foch", "stationA": "44509_C01372", "stationB": "45437_C01727" },
+  {
+    "comm": "Porte Maillot=>Neuilly Porte Maillot",
+    "stationA": "44533_C01371",
+    "stationB": "415093_C01727"
+  },
+  { "comm": "Auber=>Opéra", "stationA": "45873_C01742", "stationB": "42237_C01373" },
+  { "comm": "Saint-Lazare=>Saint-Lazare", "stationA": "58566_C01384", "stationB": "462374_C01383" },
+  { "comm": "Saint-Lazare=>Saint-Lazare", "stationA": "462374_C01383", "stationB": "58718_C01382" },
+  {
+    "comm": "Porte de Clichy=>Porte de Clichy",
+    "stationA": "473477_C01384",
+    "stationB": "44514_C01383"
+  },
+  { "comm": "Gare de Lyon=>Gare de Lyon", "stationA": "43153_C01371", "stationB": "470195_C01742" },
+  {
+    "comm": "Bibliothèque François Mitterrand=>Bibliothèque François Mitterrand",
+    "stationA": "473111_C01384",
+    "stationB": "45301_C01727"
+  },
+  { "comm": "Invalides=>Invalides", "stationA": "470540_C01383", "stationB": "473381_C01378" },
+  {
+    "comm": "Porte de Pantin=>Porte de Pantin",
+    "stationA": "44521_C01375",
+    "stationB": "473687_C01679"
+  },
+  {
+    "comm": "Pré Saint-Gervais=>Hôpital Robert Debré",
+    "stationA": "45617_C01387",
+    "stationB": "45616_C01679"
+  },
+  { "comm": "Auber=>Havre-Caumartin", "stationA": "45873_C01742", "stationB": "58718_C01373" },
+  {
+    "comm": "Châtelet=>Châtelet-Les Halles",
+    "stationA": "42587_C01371",
+    "stationB": "45102_C01742"
+  },
+  {
+    "comm": "Porte de Charenton=>Porte de Charenton",
+    "stationA": "473680_C01391",
+    "stationB": "44512_C01378"
+  }
+]

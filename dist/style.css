@@ -78,12 +78,8 @@ a:hover {
   z-index: 1000;
 }
 
-.smallZoom .stationMarker {
-  border: 1px solid #222;
-  width: 9px !important;
-  height: 9px !important;
-  margin-left: -5px !important;
-  margin-top: -5px !important;
+.leaflet-tile-container {
+  filter: saturate(0.75);
 }
 
 .leaflet-tooltip.stationTooltip {

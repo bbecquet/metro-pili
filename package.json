@@ -6,10 +6,10 @@
   "directories": {
     "doc": "doc"
   },
+  "type": "module",
   "scripts": {
     "build": "rollup -c",
-    "build:watch": "rollup -cw",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build:watch": "rollup -cw"
   },
   "repository": {
     "type": "git",
@@ -22,13 +22,22 @@
   },
   "homepage": "https://github.com/bbecquet/metro-pili#readme",
   "dependencies": {
+    "@turf/distance": "^6.5.0",
+    "@turf/flatten": "^6.5.0",
+    "@turf/helpers": "^6.5.0",
     "color": "^4.0.2",
-    "jkstra": "^0.1.1"
+    "jkstra": "^0.1.1",
+    "line-join": "^0.0.1",
+    "ramda": "^0.27.1"
   },
   "devDependencies": {
     "@rollup/plugin-babel": "^5.3.0",
     "@rollup/plugin-commonjs": "^21.0.1",
     "@rollup/plugin-node-resolve": "^13.0.6",
+    "jest": "^27.4.3",
     "rollup": "^2.60.1"
+  },
+  "jest": {
+    "transform": {}
   }
 }

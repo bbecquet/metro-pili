@@ -56,13 +56,22 @@ function init(ratp) {
   const stationMarkers = {}
   const stationsWithConnections = new Set()
 
+  const lineIndex = {}
+  ratp.forEachLine(line => {
+    lineIndex[line.id] = line
+  })
+
   // Stations
   ratp.forEachStation(function (station) {
     const { id, coords, name, lines } = station
+    const lineColor = Color(lineIndex[station.idrefligc].color)
+    const offLedColor = (lineColor.isDark() ? lineColor : lineColor.darken(0.5))
+      .desaturate(0.75)
+      .hex()
     const stationMarker = L.marker(coords, {
       icon: L.divIcon({
         className: 'stationMarker',
-        html: `<div class="stationMarker-inner" id="station-${id}"></div>`
+        html: `<div class="stationMarker-inner" id="station-${id}" style="--led-color:${offLedColor};"></div>`
       })
     })
       .addTo(_map)
@@ -97,16 +106,28 @@ function init(ratp) {
   }
 
   ratp.forEachLine(function (line) {
-    line.branches.forEach(function (b) {
-      const coordsPath = b.stations.map(stationId => ratp.stationById(stationId).coords)
-      const darkerColor = Color(line.color).darken(0.25).hex()
-      const weight = line.type === 'rer' ? 7 : line.type === 'tram' ? 2 : 4
-
+    const segments = line.branches.flatMap(({ segments }) =>
+      segments.map(segment => segment.map(coord => coord.slice().reverse()))
+    )
+    const color = Color(line.color).hex()
+    const darkerColor = Color(color).darken(0.25).hex()
+    const weight = line.type === 'rer' ? 7 : line.type === 'tram' ? 2 : 4
+    segments.forEach(coordsPath => {
       drawPolys(coordsPath, [
-        { pane: 'outlines', color: darkerColor, weight: weight + 4 },
-        { pane: 'lines', color: line.color, weight }
+        { pane: 'outlines', color: darkerColor, weight: weight + 2 },
+        { pane: 'lines', color: color, weight }
       ])
     })
+    // line.branches.forEach(function (b) {
+    //   const coordsPath = b.stations.map(stationId => ratp.stationById(stationId).coords)
+    //   const darkerColor = Color(line.color).darken(0.25).hex()
+    //   const weight = line.type === 'rer' ? 7 : line.type === 'tram' ? 2 : 4
+
+    //   drawPolys(coordsPath, [
+    //     { pane: 'outlines', color: darkerColor, weight: weight + 4 },
+    //     { pane: 'lines', color: line.color, weight }
+    //   ])
+    // })
   })
 
   // Connections
@@ -143,6 +164,13 @@ function init(ratp) {
     mapClearPath()
 
     if (startStation && endStation) {
+      console.log(
+        JSON.stringify({
+          comm: startStation.name + '=>' + endStation.name,
+          stationA: startStation.id,
+          stationB: endStation.id
+        })
+      )
       const route = ratp.shortestRoute(startStation, endStation, {
         edgeFilter: edge => ALLOWED_TYPES[edge.data.type],
         edgeCost: travelCostLessConnections
