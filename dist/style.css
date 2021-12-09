@@ -42,6 +42,7 @@ a:hover {
   color: #eee;
   z-index: 500;
   display: flex;
+  gap: 1rem;
   justify-content: space-between;
 }
 
@@ -144,15 +145,11 @@ button {
 input:invalid {
   background-color: rgb(255, 184, 184);
 }
-#compute-button {
-  align-self: flex-end;
-}
 
-@media (max-width: 800px) {
+@media (max-width: 650px) {
   #about-button {
-    position: absolute;
-    top: 1rem;
-    right: 0.5rem;
+    align-self: flex-end;
+    flex-shrink: 0;
   }
 
   #searchform {
@@ -170,6 +167,7 @@ input:invalid {
 }
 
 #searchform {
+  flex-grow: 1;
   display: flex;
   gap: 1rem;
 }

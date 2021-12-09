@@ -60,7 +60,7 @@ function loadNetwork() {
   })
 }
 
-function init(ratp) {
+function initApp(network) {
   const _map = L.map('map', {
     center: [48.86, 2.335],
     zoom: 13,
@@ -80,20 +80,18 @@ function init(ratp) {
   const stationsWithConnections = new Set()
 
   const lineIndex = {}
-  ratp.forEachLine(line => {
+  network.forEachLine(line => {
     lineIndex[line.id] = line
   })
 
   const stations = []
-  ratp.forEachStation(station => {
+  network.forEachStation(station => {
     const lineName = lineIndex[station.idrefligc].name.replace('METRO ', '').replace('TRAM ', 'T')
     stations.push({
       ...station,
       uniqueName: `${station.name} (${lineName})`
     })
   })
-
-  initForm()
 
   const stationToolTip = (station, on) => {
     const marker = stationMarkers[station.id]
@@ -126,13 +124,13 @@ function init(ratp) {
     })
       .addTo(_map)
       .on('click', () => toggleRoutePoint(station))
-      .on('mouseover', ({ target }) => {
+      .on('mouseover', () => {
         if (routePoints.includes(station)) {
           return
         }
         stationToolTip(station, true)
       })
-      .on('mouseout', ({ target }) => {
+      .on('mouseout', () => {
         if (routePoints.includes(station)) {
           return
         }
@@ -151,7 +149,7 @@ function init(ratp) {
     })
   }
 
-  ratp.forEachLine(function (line) {
+  network.forEachLine(function (line) {
     const segments = line.branches.flatMap(({ segments }) =>
       segments.map(segment => segment.map(coord => coord.slice().reverse()))
     )
@@ -167,7 +165,7 @@ function init(ratp) {
   })
 
   // Connections
-  ratp.innerGraph.forEachEdge(function (edge) {
+  network.innerGraph.forEachEdge(function (edge) {
     if (edge.data.interStation) {
       const {
         from: { data: stationA },
@@ -195,32 +193,38 @@ function init(ratp) {
   })
   // -----
 
+  let routePoints = []
+  initForm()
+
   function initForm() {
+    // fill input suggestion list
     document.getElementById('station-list').innerHTML = stations
       .map(map => map.uniqueName)
       .sort()
       .map(name => `<option value="${name}" />`)
       .join('')
 
-    const start = document.getElementById('start')
-    const end = document.getElementById('end')
+    function validator(field, index) {
+      field.addEventListener('change', ({ target }) => {
+        const station = target.value ? stations.find(s => s.uniqueName === target.value) : null
+        const invalid = target.value && !station
+        target.setCustomValidity(invalid ? 'Station inconnue' : '')
+        if (index === 0) {
+          changeRoutePoints(station, routePoints[1])
+        } else {
+          changeRoutePoints(routePoints[0], station)
+        }
+      })
+    }
 
-    start.addEventListener('blur', () => {
-      const from = stations.find(station => station.uniqueName === start.value)
-      start.setCustomValidity(from ? '' : 'Station inconnue')
-    })
+    validator(document.getElementById('start'), 0)
+    validator(document.getElementById('end'), 1)
+  }
 
-    document.getElementById('searchform').addEventListener('submit', e => {
-      e.preventDefault()
-      const from = stations.find(station => station.uniqueName === start.value)
-      const to = stations.find(station => station.uniqueName === end.value)
-      routePoints.forEach(previous => stationToolTip(previous, false))
-      if (from && to) {
-        stationToolTip(from, true)
-        stationToolTip(to, true)
-        routePoints.push(from)
-        routePoints.push(to)
-        computeRoute(from, to)
+  function clearTooltips() {
+    _map.eachLayer(function (layer) {
+      if (layer.options.pane === 'tooltipPane') {
+        layer.remove()
       }
     })
   }
@@ -237,35 +241,42 @@ function init(ratp) {
           stationB: endStation.id
         })
       )
-      const route = ratp.shortestRoute(startStation, endStation, {
+      const route = network.shortestRoute(startStation, endStation, {
         edgeFilter: edge => ALLOWED_TYPES[edge.data.type],
         edgeCost: travelCostLessConnections
       })
       displayResult(route)
     }
-
-    return
   }
 
-  const routePoints = []
-
-  function removeRoutePoint(i) {
-    const [removedPoint] = routePoints.splice(i, 1)
-    stationToolTip(removedPoint, false)
-  }
-
-  function toggleRoutePoint(station) {
-    const i = routePoints.findIndex(s => s === station)
-    if (i > -1) {
-      removeRoutePoint(i)
-    } else {
-      routePoints.push(station)
-      if (routePoints.length > 2) {
-        removeRoutePoint(0)
+  function changeRoutePoints(from, to) {
+    clearTooltips()
+    routePoints = [from, to]
+    routePoints.forEach(pt => {
+      if (pt) {
+        stationToolTip(pt, true)
       }
-    }
+    })
+    document.getElementById('start').value = routePoints[0]?.uniqueName || ''
+    document.getElementById('end').value = routePoints[1]?.uniqueName || ''
     computeRoute(routePoints[0], routePoints[1])
   }
+
+  // Urgh…
+  function toggleRoutePoint(station) {
+    if (station === routePoints[0]) {
+      changeRoutePoints(null, routePoints[1])
+    } else if (station === routePoints[1]) {
+      changeRoutePoints(routePoints[0], null)
+    } else if (!routePoints[0]) {
+      changeRoutePoints(station, routePoints[1])
+    } else if (!routePoints[1]) {
+      changeRoutePoints(routePoints[0], station)
+    } else {
+      changeRoutePoints(routePoints[1], station)
+    }
+  }
+
   function mapClearPath() {
     const pathLeds = [...document.getElementsByClassName('path')]
     pathLeds.forEach(pathLed => {
@@ -301,9 +312,9 @@ function init(ratp) {
   }
 }
 
-function start() {
-  loadNetwork().then(init)
+function init() {
+  loadNetwork().then(initApp)
   initAboutDialog()
 }
 
-window.onload = start
+window.onload = init
