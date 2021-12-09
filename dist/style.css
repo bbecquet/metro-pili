@@ -16,31 +16,96 @@ html {
 body {
   height: 100%;
   font-family: sans-serif;
-  display: flex;
-  flex-direction: column;
+  line-height: 1.25;
 }
 
 a {
-  color: white;
+  color: rgb(64, 126, 64);
 }
 
 a:hover {
-  color: #bdb;
+  text-decoration: none;
+}
+
+#wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column-reverse;
+  transition: filter 0.5s;
 }
 
 #panel {
   font-size: 0.8rem;
-  height: 6rem;
   padding: 0.5rem;
   box-shadow: 5px 0 10px 0 black;
   background-color: #444;
   color: #eee;
-  overflow: auto;
   z-index: 500;
+  display: flex;
+  justify-content: space-between;
 }
 
 #map {
   height: 100%;
+}
+
+#about {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+#about .dialog {
+  font-size: small;
+  background-color: white;
+  max-width: 500px;
+  border-radius: 4px;
+  padding: 1rem;
+  margin: 1rem;
+  box-shadow: 0 5px 10px black;
+}
+
+#about-button {
+  background: none;
+  border: none;
+  color: white;
+  text-decoration: underline;
+}
+#about-button:hover {
+  text-decoration: none;
+}
+
+#about-buttons {
+  margin-top: 1rem;
+  text-align: right;
+}
+
+h1 {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+p {
+  margin-bottom: 0.5rem;
+}
+
+ul {
+  padding-left: 1rem;
+}
+
+body.about #about {
+  display: flex;
+}
+
+body.about #wrapper {
+  filter: brightness(0.5) blur(2px);
+  pointer-events: none;
 }
 
 .stationMarker {
@@ -62,6 +127,51 @@ a:hover {
 
 .path.stationMarker-inner {
   box-shadow: inset 1px 1px 4px #000, 0 0 1px #000, 0 0 8px 7px var(--led-color);
+}
+
+input,
+button {
+  padding: 0.25rem 0.5rem;
+}
+input {
+  border-radius: 3px;
+  border: 0;
+  box-shadow: 0 0 3px black inset;
+}
+button {
+  cursor: pointer;
+}
+input:invalid {
+  background-color: rgb(255, 184, 184);
+}
+#compute-button {
+  align-self: flex-end;
+}
+
+@media (max-width: 800px) {
+  #about-button {
+    position: absolute;
+    top: 1rem;
+    right: 0.5rem;
+  }
+
+  #searchform {
+    flex-direction: column;
+  }
+
+  #panel {
+    position: relative;
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+}
+
+#searchform {
+  display: flex;
+  gap: 1rem;
 }
 
 .path.stationMarker-inner::after {

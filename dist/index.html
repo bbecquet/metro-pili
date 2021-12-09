@@ -18,17 +18,59 @@
 </head>
 
 <body>
-  <div id="map"></div>
-  <div id="panel">
-    <p>Version web d'un P.I.L.I ("plan
-      indicateur lumineux d'itinéraires", voir <a
-        href="https://fr.wikipedia.org/wiki/Am%C3%A9nagement_des_stations_du_m%C3%A9tro_de_Paris#Les_plans_indicateurs_lumineux_d%E2%80%99itin%C3%A9raires">Wikipedia</a>),
-      fait comme démo pour <a href="https://github.com/bbecquet/jkstra">jkstra</a>, ma bibliothèque JavaScript de
-      calcul d'itinéraire.
-    </p>
-    <p>Données et tuiles cartographiques &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> et
-      contributeurs. Données de réseau OpenData <a href="https://data.iledefrance-mobilites.fr">Île-de-France
-        Mobilités</a>, fortement triturées.</p>
+  <div id="wrapper">
+    <div id="panel">
+      <form id="searchform">
+        <datalist id="station-list"></datalist>
+        <div class="field">
+          <label for="start">Départ</label>
+          <input id="start" name="start" list="station-list" tabindex="0" />
+        </div>
+        <div class="field">
+          <label for="end">Arrivée</label>
+          <input id="end" name="end" list="station-list" />
+        </div>
+        <button id="compute-button">Trajet</button>
+      </form>
+
+      <button type="button" id="about-button">À propos</button>
+    </div>
+    <div id="map"></div>
+  </div>
+
+  <div id="about">
+    <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="about-title" aria-describedby="about-content">
+      <h1 id="about-title">À propos</h1>
+      <div id="about-content">
+        <p>Version web d'un P.I.L.I, "plan
+          indicateur lumineux d'itinéraires" (<a
+            href="https://fr.wikipedia.org/wiki/Am%C3%A9nagement_des_stations_du_m%C3%A9tro_de_Paris#Les_plans_indicateurs_lumineux_d%E2%80%99itin%C3%A9raires">voir
+            Wikipedia</a>).
+        </p>
+        <p>
+          Réalisé comme démo pour <a href="https://github.com/bbecquet/jkstra">jkstra</a>, ma bibliothèque JavaScript de
+          calcul d'itinéraire.
+        </p>
+        <p>Fond de carte &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> et
+          contributeurs.</p>
+        <p>Données de réseau OpenData <a href="https://data.iledefrance-mobilites.fr">Île-de-France
+            Mobilités</a>, fortement triturées.</p>
+        <p>Sources :</p>
+        <ul>
+          <li><a href="https://data.iledefrance-mobilites.fr/explore/dataset/emplacement-des-gares-idf">Gares et
+              stations
+              du réseau ferré d'Île-de-France (par ligne)</a><br />
+            Licence Ouverte (Etalab) / Mise-à-jour 9 avril 2021</li>
+          <li><a href="https://data.iledefrance-mobilites.fr/explore/dataset/traces-du-reseau-ferre-idf">Tracés du
+              réseau
+              de transport ferré d'Ile-de-France</a><br />
+            Licence Ouverte (Etalab) / Mise-à-jour 21 octobre 2021</li>
+        </ul>
+      </div>
+      <div id="about-buttons">
+        <button id="about-close">Fermer</button>
+      </div>
+    </div>
   </div>
 </body>
 

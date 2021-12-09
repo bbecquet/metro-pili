@@ -53,11 +53,7 @@ lines = R.pipe(
       geom: s.geometry
     }
   }),
-  R.filter(s => {
-    return ['metro', 'rer', 'tram'].includes(s.type)
-  }),
-  // R.filter(s => s.id === 'C01390'),
-  // R.reject(s => ['C01728' /* RER D */, 'C01376' /* METRO 6 */].includes(s.id)),
+  R.filter(s => ['metro', 'rer', 'tram'].includes(s.type)),
   R.groupBy(R.prop('id')),
   R.map(segments => {
     // get segments as a flat array of coordinates array

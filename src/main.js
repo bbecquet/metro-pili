@@ -1,5 +1,6 @@
 import Color from 'color'
 import PTGraph from './PTGraph.js'
+import * as focusTrap from 'focus-trap'
 
 const DEFAULT_TIMES = {
   connection: 60, // 1 min
@@ -20,6 +21,28 @@ const ALLOWED_TYPES = {
   rer: true,
   tram: true,
   connection: true
+}
+
+function initAboutDialog() {
+  const trap = focusTrap.createFocusTrap(document.querySelector('#about .dialog'))
+  const dialogClose = document.getElementById('about-close')
+  const closeAbout = () => {
+    trap.deactivate()
+    document.body.classList.remove('about')
+    document.getElementById('wrapper').removeAttribute('aria-hidden')
+  }
+  dialogClose.addEventListener('click', closeAbout)
+  document.getElementById('about-button').addEventListener('click', () => {
+    document.body.classList.add('about')
+    document.getElementById('wrapper').setAttribute('aria-hidden', 'true')
+    dialogClose.focus()
+    trap.activate()
+    document.addEventListener('keydown', e => {
+      if (e.code === 'Escape') {
+        closeAbout()
+      }
+    })
+  })
 }
 
 function loadNetwork() {
@@ -61,8 +84,35 @@ function init(ratp) {
     lineIndex[line.id] = line
   })
 
+  const stations = []
+  ratp.forEachStation(station => {
+    const lineName = lineIndex[station.idrefligc].name.replace('METRO ', '').replace('TRAM ', 'T')
+    stations.push({
+      ...station,
+      uniqueName: `${station.name} (${lineName})`
+    })
+  })
+
+  initForm()
+
+  const stationToolTip = (station, on) => {
+    const marker = stationMarkers[station.id]
+    if (!marker) {
+      return
+    }
+    if (on) {
+      stationMarkers[station.id].bindTooltip(station.name, {
+        opacity: 1,
+        className: 'stationTooltip',
+        permanent: true
+      })
+    } else {
+      marker.unbindTooltip()
+    }
+  }
+
   // Stations
-  ratp.forEachStation(function (station) {
+  stations.forEach(function (station) {
     const { id, coords, name, lines } = station
     const lineColor = Color(lineIndex[station.idrefligc].color)
     const offLedColor = (lineColor.isDark() ? lineColor : lineColor.darken(0.5))
@@ -80,17 +130,13 @@ function init(ratp) {
         if (routePoints.includes(station)) {
           return
         }
-        target.bindTooltip(name, {
-          opacity: 1,
-          className: 'stationTooltip',
-          permanent: true
-        })
+        stationToolTip(station, true)
       })
       .on('mouseout', ({ target }) => {
         if (routePoints.includes(station)) {
           return
         }
-        target.unbindTooltip()
+        stationToolTip(station, false)
       })
     stationMarkers[id] = stationMarker
     if (lines.size > 1) {
@@ -159,6 +205,36 @@ function init(ratp) {
   })
   // -----
 
+  function initForm() {
+    document.getElementById('station-list').innerHTML = stations
+      .map(map => map.uniqueName)
+      .sort()
+      .map(name => `<option value="${name}" />`)
+      .join('')
+
+    const start = document.getElementById('start')
+    const end = document.getElementById('end')
+
+    start.addEventListener('blur', () => {
+      const from = stations.find(station => station.uniqueName === start.value)
+      start.setCustomValidity(from ? '' : 'Station inconnue')
+    })
+
+    document.getElementById('searchform').addEventListener('submit', e => {
+      e.preventDefault()
+      const from = stations.find(station => station.uniqueName === start.value)
+      const to = stations.find(station => station.uniqueName === end.value)
+      routePoints.forEach(previous => stationToolTip(previous, false))
+      if (from && to) {
+        stationToolTip(from, true)
+        stationToolTip(to, true)
+        routePoints.push(from)
+        routePoints.push(to)
+        computeRoute(from, to)
+      }
+    })
+  }
+
   // Route computing
   function computeRoute(startStation, endStation) {
     mapClearPath()
@@ -185,7 +261,7 @@ function init(ratp) {
 
   function removeRoutePoint(i) {
     const [removedPoint] = routePoints.splice(i, 1)
-    stationMarkers[removedPoint.id].unbindTooltip()
+    stationToolTip(removedPoint, false)
   }
 
   function toggleRoutePoint(station) {
@@ -237,6 +313,7 @@ function init(ratp) {
 
 function start() {
   loadNetwork().then(init)
+  initAboutDialog()
 }
 
 window.onload = start

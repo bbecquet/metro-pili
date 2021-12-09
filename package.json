@@ -26,6 +26,7 @@
     "@turf/flatten": "^6.5.0",
     "@turf/helpers": "^6.5.0",
     "color": "^4.0.2",
+    "focus-trap": "^6.7.1",
     "jkstra": "^0.1.1",
     "line-join": "^0.0.1",
     "ramda": "^0.27.1"
