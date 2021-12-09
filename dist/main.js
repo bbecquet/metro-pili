@@ -4393,15 +4393,7 @@
 	        color: color$1,
 	        weight
 	      }]);
-	    }); // line.branches.forEach(function (b) {
-	    //   const coordsPath = b.stations.map(stationId => ratp.stationById(stationId).coords)
-	    //   const darkerColor = Color(line.color).darken(0.25).hex()
-	    //   const weight = line.type === 'rer' ? 7 : line.type === 'tram' ? 2 : 4
-	    //   drawPolys(coordsPath, [
-	    //     { pane: 'outlines', color: darkerColor, weight: weight + 4 },
-	    //     { pane: 'lines', color: line.color, weight }
-	    //   ])
-	    // })
+	    });
 	  }); // Connections
 
 	  ratp.innerGraph.forEachEdge(function (edge) {
