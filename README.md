@@ -1,3 +1,6 @@
+> [!WARNING]
+> This repo has been archived and migrated to Codeberg https://codeberg.org/bbecquet/metro-pili
+
 # PILI
 
 Web version of a "PILI" (for _plan indicateur lumineux d’itinéraires_), vintage lightbulb-based interactive maps that were installed in the Paris metro stations. See this [french WikiPedia article](https://fr.wikipedia.org/wiki/Am%C3%A9nagement_des_stations_du_m%C3%A9tro_de_Paris#Les_plans_indicateurs_lumineux_d%E2%80%99itin%C3%A9raires).
